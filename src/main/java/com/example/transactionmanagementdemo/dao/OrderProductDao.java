@@ -5,6 +5,7 @@ import com.example.transactionmanagementdemo.domain.entity.Orders;
 import com.example.transactionmanagementdemo.domain.entity.OrderProduct;
 import com.example.transactionmanagementdemo.domain.entity.Product;
 import com.example.transactionmanagementdemo.domain.request.PurchaseRequest;
+import com.example.transactionmanagementdemo.exception.NotEnoughInventoryException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -30,6 +31,15 @@ public class OrderProductDao {
 
         try{
             session = sessionFactory.getCurrentSession();
+
+            // check stock
+            for(int i = 0; i < purchaseRequest.getProductNames().size(); i++) {
+                ProductDao productDao = new ProductDao();
+                Product product = productDao.getProductWholeObject(purchaseRequest.getProductNames().get(i), session);
+                if(product.getStock_quantity() < purchaseRequest.getPuductQuantity().get(i)) {
+                    throw new NotEnoughInventoryException("not enough products in stock");
+                }
+            }
             Orders newOrder = new Orders();
             newOrder.setUser_id(user_id);
             newOrder.setOrder_status("processing");

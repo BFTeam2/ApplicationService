@@ -19,9 +19,9 @@ public class WatchlistController {
     }
 
 
-    @GetMapping("/watchlist")
-    public List getWatchlist(@RequestBody User user){
-        return userService.getWatchlist(user);
+    @GetMapping("/watchlist/{user_id}")
+    public List getWatchlist(@PathVariable int user_id){
+        return userService.getWatchlist(user_id);
     }
 
     @PutMapping(path="/watchlist/add/{user_id}", params = "product_id")

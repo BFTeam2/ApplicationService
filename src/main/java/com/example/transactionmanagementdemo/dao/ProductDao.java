@@ -59,7 +59,7 @@ public class ProductDao {
             Query<Product> q = session.createQuery("Select p FROM Product p WHERE name =:productName");
             q.setParameter("productName", productName);
             productList = q.list();
-            System.out.println(productList.size());
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -70,6 +70,19 @@ public class ProductDao {
 
         try{
             Query q = session.createQuery("Update Product set stock_quantity = stock_quantity - :quantity WHERE name =:productName");
+            q.setParameter("productName", productName);
+            q.setParameter("quantity", quantity);
+            q.executeUpdate();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void increaseStockQuantity(String productName, int quantity){
+        Session session;
+        try{
+            session = sessionFactory.getCurrentSession();
+            Query q = session.createQuery("Update Product set stock_quantity = stock_quantity + :quantity WHERE name =:productName");
             q.setParameter("productName", productName);
             q.setParameter("quantity", quantity);
             q.executeUpdate();

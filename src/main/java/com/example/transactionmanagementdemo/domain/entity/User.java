@@ -1,5 +1,6 @@
 package com.example.transactionmanagementdemo.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;

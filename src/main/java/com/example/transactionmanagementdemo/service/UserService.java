@@ -27,8 +27,8 @@ public class UserService {
     }
 
     @Transactional
-    public List getWatchlist(User user) {
-        return userDao.getWatchlist(user);
+    public List getWatchlist(int user_id) {
+        return userDao.getWatchlist(user_id);
     }
 
     @Transactional

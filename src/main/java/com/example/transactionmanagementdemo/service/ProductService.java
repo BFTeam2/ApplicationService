@@ -27,4 +27,9 @@ public class ProductService {
 
     @Transactional
     public List getProduct(String name) {return productDao.getProduct(name);}
+
+    @Transactional
+    public void increaseStockQuantity(String productName, int quantity){
+         productDao.increaseStockQuantity(productName,quantity);
+    }
 }

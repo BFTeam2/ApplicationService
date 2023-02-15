@@ -4,6 +4,7 @@ import com.example.transactionmanagementdemo.domain.entity.Author;
 import com.example.transactionmanagementdemo.domain.entity.Product;
 import com.example.transactionmanagementdemo.domain.entity.User;
 import com.example.transactionmanagementdemo.exception.AuthorSaveFailedException;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -58,20 +59,22 @@ public class UserDao {
         return "exception";
     }
 
-    public List getWatchlist(User user){
+    public List getWatchlist(int user_id){
         Session session;
-        List productList = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
         try{
             session = sessionFactory.getCurrentSession();
 
-            Query q = session.createQuery("from User u left join fetch u.watchlistProducts Where u.user_id =:user_id");
-            q.setParameter("user_id", user.getUser_id());
+            Query q = session.createQuery("Select distinct u from User u left join u.watchlistProducts Where u.user_id =:user_id");
+            q.setParameter("user_id", user_id);
             List<User> list = q.list();
             System.out.println(list.size());
             for(User u: list) {
-                productList.add(u.getWatchlistProducts());
+                productList = u.getWatchlistProducts();
             }
-
+            for(Product product: productList) {
+                Hibernate.initialize(product.getUsers());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("home")
 public class HomeController {
     public final ProductService productService;
     public final OrderService orderService;
@@ -35,5 +34,10 @@ public class HomeController {
     @GetMapping("/allOrders/{user_id}")
     public List getAllOrders(@PathVariable int user_id){
         return orderService.getAllOrders(user_id);
+    }
+
+    @PostMapping("/cancelOrder/{user_id}")
+    public void cancelOrder(@PathVariable int user_id, @RequestParam int order_id){
+        orderService.cancelOrder(user_id, order_id);
     }
 }
