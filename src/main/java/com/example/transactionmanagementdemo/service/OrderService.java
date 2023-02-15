@@ -22,5 +22,8 @@ public class OrderService {
     public List getAllOrders(int user_id){return ordersDao.getAllOrders(user_id);}
 
     @Transactional
+    public List getAllOrdersAdmin(){return ordersDao.getAllOrdersAdmin();}
+
+    @Transactional
     public void cancelOrder(int user_id, int order_id){ ordersDao.cancelOrder(user_id, order_id);}
 }

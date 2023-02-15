@@ -1,5 +1,6 @@
 package com.example.transactionmanagementdemo.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,5 +33,6 @@ public class Orders {
     // when persisting a question, hibernate should also persist all choices inside the Collection
     // telling Hibernate that information can be found in Choice class, under field "question"
     @ToString.Exclude   // prevent infinite loop when calling toString()
+    @JsonIgnore
     private List<OrderProduct> orderProducts = new ArrayList<>();   //can be any Collection
 }

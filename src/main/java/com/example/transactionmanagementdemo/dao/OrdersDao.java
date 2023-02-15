@@ -38,6 +38,20 @@ public class OrdersDao {
         return ordersList;
     }
 
+    public List getAllOrdersAdmin(){
+        Session session;
+        List<Orders> ordersList = null;
+        try{
+            session = sessionFactory.getCurrentSession();
+            Query q = session.createQuery("SELECT o FROM Orders o");
+
+            ordersList = q.list();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ordersList;
+    }
+
     public void cancelOrder(int user_id, int order_id) {
         Session session;
         try{

@@ -36,6 +36,19 @@ public class ProductDao {
         return productList;
     }
 
+    public List<String> getAllProductNamesAdmin(){
+        Session session;
+        List<String> productList = null;
+        try{
+            session = sessionFactory.getCurrentSession();
+            Query q = session.createQuery("SELECT name FROM Product p");
+            productList = q.list();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
     public List getProduct(String productName) {
         Session session;
         List productList = null;
@@ -56,6 +69,22 @@ public class ProductDao {
         List<Product> productList = null;
         try{
 
+            Query<Product> q = session.createQuery("Select p FROM Product p WHERE name =:productName");
+            q.setParameter("productName", productName);
+            productList = q.list();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return productList.size() > 0 ? productList.get(0) : null;
+    }
+
+    public Product getProductWholeObject(String productName) {
+        System.out.println(productName);
+        Session session;
+        List<Product> productList = null;
+        try{
+            session = sessionFactory.getCurrentSession();
             Query<Product> q = session.createQuery("Select p FROM Product p WHERE name =:productName");
             q.setParameter("productName", productName);
             productList = q.list();
