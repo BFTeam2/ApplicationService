@@ -8,5 +8,5 @@ import java.util.*;
 
 public class PurchaseRequest {
     List<String> productNames;
-    List<Integer> puductQuantity;
+    List<Integer> productQuantity;
 }

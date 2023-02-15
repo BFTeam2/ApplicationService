@@ -24,7 +24,7 @@ public class PurchaseController {
         this.orderProductService = orderProductService;
     }
 
-    @PostMapping("/purchase/{user_id}")
+    @PostMapping("purchase/{user_id}")
     public void purchase(@PathVariable int user_id, @RequestBody PurchaseRequest purchaseRequest){
 
         orderProductService.addOrderProduct(purchaseRequest, user_id);

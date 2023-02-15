@@ -45,4 +45,14 @@ public class AdminController {
 
     @PostMapping("sellProduct/{name}")
     public void reduceStockQuantity(@PathVariable String name, @RequestParam int quantity){productService.reduceStockQuantity(name, quantity);}
+
+    @PostMapping("/cancelOrder/{order_id}")
+    public void cancelOrder(@PathVariable int order_id){
+        orderService.cancelOrder(order_id);
+    }
+
+    @PostMapping("/completeOrder/{order_id}")
+    public void completeOrder(@PathVariable int order_id){
+        orderService.completeOrder(order_id);
+    }
 }

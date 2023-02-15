@@ -36,7 +36,7 @@ public class OrderProductDao {
             for(int i = 0; i < purchaseRequest.getProductNames().size(); i++) {
                 ProductDao productDao = new ProductDao();
                 Product product = productDao.getProductWholeObject(purchaseRequest.getProductNames().get(i), session);
-                if(product.getStock_quantity() < purchaseRequest.getPuductQuantity().get(i)) {
+                if(product.getStock_quantity() < purchaseRequest.getProductQuantity().get(i)) {
                     throw new NotEnoughInventoryException("not enough products in stock");
                 }
             }
@@ -48,7 +48,7 @@ public class OrderProductDao {
             for(int i = 0; i < purchaseRequest.getProductNames().size(); i++) {
                 ProductDao productDao = new ProductDao();
                 String productName = purchaseRequest.getProductNames().get(i);
-                int quantity = purchaseRequest.getPuductQuantity().get(i);
+                int quantity = purchaseRequest.getProductQuantity().get(i);
                 Product product = productDao.getProductWholeObject(productName, session);
 
                 // create orderProduct

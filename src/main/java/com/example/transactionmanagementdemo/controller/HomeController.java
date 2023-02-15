@@ -39,8 +39,8 @@ public class HomeController {
         return orderService.getAllOrders(user_id);
     }
 
-    @PostMapping("/cancelOrder/{user_id}")
-    public void cancelOrder(@PathVariable int user_id, @RequestParam int order_id){
-        orderService.cancelOrder(user_id, order_id);
+    @PostMapping("/cancelOrder/{order_id}")
+    public void cancelOrder(@PathVariable int order_id){
+        orderService.cancelOrder(order_id);
     }
 }

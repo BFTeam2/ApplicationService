@@ -52,18 +52,18 @@ public class OrdersDao {
         return ordersList;
     }
 
-    public void cancelOrder(int user_id, int order_id) {
+    public void cancelOrder(int order_id) {
         Session session;
         try{
             session = sessionFactory.getCurrentSession();
-            Query q = session.createQuery("Update Orders Set order_status = 'canceled' WHERE user_id =:user_id and order_id =:order_id and order_status = 'processing'");
-            q.setParameter("user_id", user_id);
+            Query q = session.createQuery("Update Orders Set order_status = 'canceled' WHERE order_id =:order_id and order_status = 'processing'");
+
             q.setParameter("order_id", order_id);
             int orderExist = q.executeUpdate();
             if(orderExist == 0) return;
 
-            q = session.createQuery("Select o From Orders o WHERE user_id =:user_id and order_id =:order_id");
-            q.setParameter("user_id", user_id);
+            q = session.createQuery("Select o From Orders o WHERE order_id =:order_id");
+
             q.setParameter("order_id", order_id);
 
             List<Orders> ordersList = q.list();
@@ -76,5 +76,13 @@ public class OrdersDao {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void completeOrder(int order_id){
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery("Update Orders Set order_status = 'completed' WHERE order_id =:order_id and order_status = 'processing'");
+
+        q.setParameter("order_id", order_id);
+        int orderExist = q.executeUpdate();
     }
 }
