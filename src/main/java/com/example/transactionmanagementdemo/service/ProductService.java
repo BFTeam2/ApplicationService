@@ -38,7 +38,10 @@ public class ProductService {
     public Product getProductWholeObject(String productName) {return productDao.getProductWholeObject(productName);}
 
     @Transactional
-    public void increaseStockQuantity(String productName, int quantity){
-         productDao.increaseStockQuantity(productName,quantity);
+    public void reduceStockQuantity(String productName, int quantity){
+         productDao.reduceStockQuantity(productName,quantity);
     }
+
+    @Transactional
+    public void addProduct(Product product) {productDao.addProduct(product);}
 }

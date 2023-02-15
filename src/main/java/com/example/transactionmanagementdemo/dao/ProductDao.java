@@ -107,6 +107,19 @@ public class ProductDao {
             e.printStackTrace();
         }
     }
+    public void reduceStockQuantity(String productName, int quantity){
+        Session session;
+        try{
+            session = sessionFactory.getCurrentSession();
+            Query q = session.createQuery("Update Product set stock_quantity = stock_quantity - :quantity WHERE name =:productName");
+            q.setParameter("productName", productName);
+            q.setParameter("quantity", quantity);
+            q.executeUpdate();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public void increaseStockQuantity(String productName, int quantity){
         Session session;
         try{
@@ -116,6 +129,16 @@ public class ProductDao {
             q.setParameter("quantity", quantity);
             q.executeUpdate();
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void addProduct(Product product){
+        Session session;
+        try{
+            session = sessionFactory.getCurrentSession();
+            session.saveOrUpdate(product);
         }catch (Exception e){
             e.printStackTrace();
         }

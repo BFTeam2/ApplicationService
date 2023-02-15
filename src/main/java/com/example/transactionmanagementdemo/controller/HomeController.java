@@ -26,27 +26,17 @@ public class HomeController {
     public List<String> getAllProductNames(){
         return productService.getAllProductNames();
     }
-    @GetMapping("/admin/allProducts")
-    public List<String> getAllProductNamesAdmin(){
-        return productService.getAllProductNamesAdmin();
-    }
+
 
     @GetMapping("/product/{name}")
     public List getProduct(@PathVariable String name) {
         return productService.getProduct(name);
     }
-    @GetMapping("/admin/product/{name}")
-    public Product getProductWholeObject(@PathVariable String name) {
-        return productService.getProductWholeObject(name);
-    }
+
 
     @GetMapping("/allOrders/{user_id}")
     public List getAllOrders(@PathVariable int user_id){
         return orderService.getAllOrders(user_id);
-    }
-    @GetMapping("/admin/allOrders")
-    public List getAllOrdersAdmin(){
-        return orderService.getAllOrdersAdmin();
     }
 
     @PostMapping("/cancelOrder/{user_id}")
