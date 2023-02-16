@@ -6,6 +6,7 @@ import com.example.transactionmanagementdemo.domain.entity.OrderProduct;
 import com.example.transactionmanagementdemo.domain.entity.Product;
 import com.example.transactionmanagementdemo.domain.request.PurchaseRequest;
 import com.example.transactionmanagementdemo.exception.NotEnoughInventoryException;
+import org.aspectj.weaver.ast.Not;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -66,9 +67,13 @@ public class OrderProductDao {
                 // update product
                 productDao.reduceStockQuantity(productName, quantity, session);
             }
-        }catch (Exception e){
+
+        }catch (NotEnoughInventoryException e){
+            throw e;
+        } catch(Exception e) {
             e.printStackTrace();
         }
+
 
     }
 }

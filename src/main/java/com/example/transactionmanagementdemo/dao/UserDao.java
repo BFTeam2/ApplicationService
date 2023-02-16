@@ -4,6 +4,7 @@ import com.example.transactionmanagementdemo.domain.entity.Author;
 import com.example.transactionmanagementdemo.domain.entity.Product;
 import com.example.transactionmanagementdemo.domain.entity.User;
 import com.example.transactionmanagementdemo.exception.AuthorSaveFailedException;
+import com.example.transactionmanagementdemo.exception.UserExistsException;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -47,13 +48,15 @@ public class UserDao {
             cq.select(root).where(predicateEmail);
             potentialUserSameEmail = session.createQuery(cq).uniqueResultOptional();
 
-            if(potentialUserSameUsername.isPresent() || potentialUserSameEmail.isPresent()) return "user exists.";
+            if(potentialUserSameUsername.isPresent() || potentialUserSameEmail.isPresent()) throw new UserExistsException("User already exists.");
             else {
                 session.saveOrUpdate(user);
                 return "registration success.";
             }
         }
-        catch (Exception e){
+        catch (UserExistsException e){
+            throw e;
+        } catch (Exception e){
             e.printStackTrace();
         }
         return "exception";
