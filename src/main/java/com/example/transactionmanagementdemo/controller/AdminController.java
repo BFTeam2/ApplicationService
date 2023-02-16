@@ -16,11 +16,13 @@ import java.util.List;
 public class AdminController {
     public final ProductService productService;
     public final OrderService orderService;
+    public final UserService userService;
 
     @Autowired
-    public AdminController(ProductService productService, OrderService orderService) {
+    public AdminController(ProductService productService, OrderService orderService, UserService userService) {
         this.productService = productService;
         this.orderService = orderService;
+        this.userService = userService;
     }
 
     @GetMapping("/allProducts")
@@ -55,4 +57,16 @@ public class AdminController {
     public void completeOrder(@PathVariable int order_id){
         orderService.completeOrder(order_id);
     }
+
+    @GetMapping("/mostProfitableProduct")
+    public String getMostProfitableProduct(){return productService.getMostProfitableProduct();}
+
+    @GetMapping("/top3MostSoldProducts")
+    public List getTop3MostSoldProducts(){return productService.getTop3MostSoldProducts();}
+
+    @GetMapping("/totalAmountProductsSold")
+    public String getTotalAmountProductsSold(){return "Total amount: " + productService.getTotalAmountProductsSold();}
+
+    @GetMapping("/top3UsersWhoSpendMost")
+    public List getTop3UsersWhoSpendMost(){return userService.getTop3UsersWhoSpendMost();}
 }

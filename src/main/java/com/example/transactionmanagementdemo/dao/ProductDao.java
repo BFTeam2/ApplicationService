@@ -14,6 +14,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
@@ -139,5 +141,71 @@ public class ProductDao {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public String getMostProfitableProduct() {
+        Session session;
+        try{
+            session = sessionFactory.getCurrentSession();
+
+            Query<String> q = session.createQuery("SELECT op.product.name, SUM((op.execution_retail_price - op.execution_wholesale_price) * op.purchased_quantity) as profit " +
+                    "FROM OrderProduct op " +
+                    "JOIN op.orders o " +
+                    "WHERE o.order_status = 'completed' " +
+                    "GROUP BY op.product " +
+                    "ORDER BY profit DESC, op.product.product_id ASC");
+            q.setMaxResults(1);
+            Object result = q.uniqueResult();
+            if (result == null) {
+                return null;
+            }
+            Object[] row = (Object[]) result;
+            String productName = (String) row[0];
+            return productName;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
+    }
+    public List getTop3MostSoldProducts() {
+        Session session;
+        List list = null;
+        try{
+            session = sessionFactory.getCurrentSession();
+
+            Query q = session.createQuery("SELECT p.name, SUM(op.purchased_quantity) AS total_purchased_quantity " +
+                    "FROM OrderProduct op " +
+                    "JOIN op.orders o " +
+                    "JOIN op.product p " +
+                    "WHERE o.order_status = 'completed' " +
+                    "GROUP BY op.product " +
+                    "ORDER BY total_purchased_quantity DESC");
+            q.setMaxResults(3);
+            list = q.list();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public long getTotalAmountProductsSold(){
+        Session session;
+        long result = 0;
+        try{
+            session = sessionFactory.getCurrentSession();
+
+            Query<Long> q = session.createQuery(
+                    "SELECT SUM(op.purchased_quantity) AS total_amount " +
+                    "FROM OrderProduct op " +
+                    "JOIN op.orders o " +
+                    "WHERE o.order_status = 'completed'");
+
+            result = q.getSingleResult();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 }

@@ -45,6 +45,10 @@ public class UserService {
     public List getTop3purchasedProductsNames(int user_id){return userDao.getTop3purchasedProductsNames(user_id);}
 
     @Transactional
-    public List getTop3MostRecentPurchasedProductsNames(int user_id){return userDao.getTop3MostRecentPurchasedProductsNames(user_id);}
+    public List getTop3MostRecentPurchasedProductsNames(int user_id){
+        return userDao.getTop3MostRecentPurchasedProductsNames(user_id);}
+
+    @Transactional
+    public List getTop3UsersWhoSpendMost(){return userDao.getTop3UsersWhoSpendMost();}
 }
 

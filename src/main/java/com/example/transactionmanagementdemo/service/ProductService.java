@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -44,4 +45,12 @@ public class ProductService {
 
     @Transactional
     public void addProduct(Product product) {productDao.addProduct(product);}
+
+    @Transactional
+    public String getMostProfitableProduct() {return productDao.getMostProfitableProduct();}
+    @Transactional
+    public List getTop3MostSoldProducts() {return productDao.getTop3MostSoldProducts();}
+
+    @Transactional
+    public long getTotalAmountProductsSold() {return productDao.getTotalAmountProductsSold();}
 }

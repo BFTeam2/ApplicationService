@@ -203,4 +203,27 @@ public class UserDao {
         }
         return list;
     }
+
+    public List getTop3UsersWhoSpendMost(){
+        Session session;
+        List list = null;
+        try{
+            session = sessionFactory.getCurrentSession();
+
+            Query q = session.createQuery("SELECT u.username " +
+                    "FROM User u " +
+                    "JOIN Orders o ON o.user_id = u.user_id " +
+                    "JOIN OrderProduct op ON op.orders.id = o.id " +
+                    "WHERE o.order_status = 'completed' " +
+                    "GROUP BY u.id " +
+                    "ORDER BY SUM(op.purchased_quantity * op.execution_retail_price) DESC, u.username ASC");
+
+            q.setMaxResults(3);
+            list = q.list();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
