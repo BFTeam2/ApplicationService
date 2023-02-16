@@ -13,6 +13,7 @@ import sun.security.krb5.internal.PAForUserEnc;
 import java.util.List;
 
 @RestController
+@RequestMapping("user")
 public class HomeController {
     public final ProductService productService;
     public final OrderService orderService;

@@ -40,12 +40,12 @@ public class AdminController {
         return orderService.getAllOrdersAdmin();
     }
 
-    @PutMapping("addProduct")
+    @PutMapping("/addProduct")
     public void addProduct(@RequestBody Product product) {
         productService.addProduct(product);
     }
 
-    @PostMapping("sellProduct/{name}")
+    @PostMapping("/sellProduct/{name}")
     public void reduceStockQuantity(@PathVariable String name, @RequestParam int quantity){productService.reduceStockQuantity(name, quantity);}
 
     @PostMapping("/cancelOrder/{order_id}")
@@ -68,5 +68,6 @@ public class AdminController {
     public String getTotalAmountProductsSold(){return "Total amount: " + productService.getTotalAmountProductsSold();}
 
     @GetMapping("/top3UsersWhoSpendMost")
+//    @PreAuthorize("hasAuthority('admin')")
     public List getTop3UsersWhoSpendMost(){return userService.getTop3UsersWhoSpendMost();}
 }

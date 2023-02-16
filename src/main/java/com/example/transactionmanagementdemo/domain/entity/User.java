@@ -28,9 +28,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "permission")
+    private String permission;
 
-    @Column(name = "is_admin")
-    private boolean is_admin;
 
     @ManyToMany(cascade = CascadeType.ALL)      // owner of relationship
     @JoinTable(name = "Product_WatchList",

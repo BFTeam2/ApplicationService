@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
+@RequestMapping("user")
 public class WatchlistController {
     public final UserService userService;
     @Autowired
