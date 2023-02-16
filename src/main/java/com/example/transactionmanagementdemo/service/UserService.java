@@ -40,5 +40,11 @@ public class UserService {
     public void deleteFromWatchlist(int user_id, int product_id) {
         userDao.deleteFromWatchlist( user_id, product_id);
     }
+
+    @Transactional
+    public List getTop3purchasedProductsNames(int user_id){return userDao.getTop3purchasedProductsNames(user_id);}
+
+    @Transactional
+    public List getTop3MostRecentPurchasedProductsNames(int user_id){return userDao.getTop3MostRecentPurchasedProductsNames(user_id);}
 }
 

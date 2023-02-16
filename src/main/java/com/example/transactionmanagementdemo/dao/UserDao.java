@@ -68,7 +68,6 @@ public class UserDao {
             Query q = session.createQuery("Select distinct u from User u left join u.watchlistProducts Where u.user_id =:user_id");
             q.setParameter("user_id", user_id);
             List<User> list = q.list();
-            System.out.println(list.size());
             for(User u: list) {
                 productList = u.getWatchlistProducts();
             }
@@ -158,5 +157,50 @@ public class UserDao {
             e.printStackTrace();
         }
 
+    }
+
+    public List getTop3purchasedProductsNames(int user_id){
+        Session session;
+        List list = null;
+        try{
+            session = sessionFactory.getCurrentSession();
+
+            Query q = session.createQuery("SELECT p.name, SUM(op.purchased_quantity) as total_purchased \n" +
+                    "FROM OrderProduct op\n" +
+                    "JOIN op.orders o\n" +
+                    "JOIN op.product p\n" +
+                    "WHERE o.user_id = :user_id AND o.order_status <> 'canceled'\n" +
+                    "GROUP BY op.product\n" +
+                    "ORDER BY total_purchased DESC, p.name ASC");
+            q.setParameter("user_id", user_id);
+            q.setMaxResults(3);
+            list = q.list();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List getTop3MostRecentPurchasedProductsNames(int user_id){
+        Session session;
+        List list = null;
+        try{
+            session = sessionFactory.getCurrentSession();
+
+            Query q = session.createQuery("SELECT p.name, o.date_places " +
+                    "FROM OrderProduct op " +
+                    "JOIN op.orders o " +
+                    "JOIN op.product p " +
+                    "WHERE o.user_id = :user_id AND o.order_status <> 'canceled' " +
+                    "ORDER BY o.date_places DESC, op.order_product_id ASC");
+            q.setParameter("user_id", user_id);
+            q.setMaxResults(3);
+            list = q.list();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }

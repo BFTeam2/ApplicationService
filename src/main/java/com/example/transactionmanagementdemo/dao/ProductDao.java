@@ -64,8 +64,6 @@ public class ProductDao {
     }
 
     public Product getProductWholeObject(String productName, Session session) {
-        System.out.println(productName);
-
         List<Product> productList = null;
         try{
 
@@ -80,7 +78,6 @@ public class ProductDao {
     }
 
     public Product getProductWholeObject(String productName) {
-        System.out.println(productName);
         Session session;
         List<Product> productList = null;
         try{

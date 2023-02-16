@@ -16,10 +16,12 @@ import java.util.List;
 public class HomeController {
     public final ProductService productService;
     public final OrderService orderService;
+    public final UserService userService;
     @Autowired
-    public HomeController(ProductService productService, OrderService orderService) {
+    public HomeController(ProductService productService, OrderService orderService, UserService userService) {
         this.productService = productService;
         this.orderService = orderService;
+        this.userService = userService;
     }
 
     @GetMapping("/allProducts")
@@ -42,5 +44,15 @@ public class HomeController {
     @PostMapping("/cancelOrder/{order_id}")
     public void cancelOrder(@PathVariable int order_id){
         orderService.cancelOrder(order_id);
+    }
+
+    @GetMapping("/top3MostPurchase/{user_id}")
+    public List getTop3purchasedProductsNames(@PathVariable int user_id) {
+        return userService.getTop3purchasedProductsNames(user_id);
+    }
+
+    @GetMapping("/top3RecentPurchase/{user_id}")
+    public List getTop3MostRecentPurchasedProductsNames(@PathVariable int user_id) {
+        return userService.getTop3MostRecentPurchasedProductsNames(user_id);
     }
 }

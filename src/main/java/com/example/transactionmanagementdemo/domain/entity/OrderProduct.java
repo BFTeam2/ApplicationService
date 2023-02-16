@@ -28,12 +28,12 @@ public class OrderProduct {
     private float execution_wholesale_price;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)  // the Owner of the relationship
-    @JoinColumn(name = "order_id") // <- name here is the exact name Hibernate can use when looking for fk in the "choice" table inside database
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Orders orders;
 
-    @ManyToOne(fetch = FetchType.LAZY)  // the Owner of the relationship
-    @JoinColumn(name = "product_id") // <- name here is the exact name Hibernate can use when looking for fk in the "choice" table inside database
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     private Product product;
 }
 
