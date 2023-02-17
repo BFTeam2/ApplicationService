@@ -1,10 +1,7 @@
 package com.example.transactionmanagementdemo.controller;
 
 
-import com.example.transactionmanagementdemo.domain.entity.Author;
 import com.example.transactionmanagementdemo.domain.entity.User;
-import com.example.transactionmanagementdemo.domain.response.AuthorResponse;
-import com.example.transactionmanagementdemo.service.AuthorService;
 import com.example.transactionmanagementdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;

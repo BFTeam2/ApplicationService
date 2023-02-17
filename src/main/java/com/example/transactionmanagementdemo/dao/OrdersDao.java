@@ -17,8 +17,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
-
 @Repository
 public class OrdersDao {
     @Autowired
@@ -85,4 +83,6 @@ public class OrdersDao {
         q.setParameter("order_id", order_id);
         int orderExist = q.executeUpdate();
     }
+
+
 }

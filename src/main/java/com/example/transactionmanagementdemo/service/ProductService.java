@@ -1,15 +1,11 @@
 package com.example.transactionmanagementdemo.service;
 
-import com.example.transactionmanagementdemo.dao.AuthorDao;
 import com.example.transactionmanagementdemo.dao.ProductDao;
-import com.example.transactionmanagementdemo.domain.entity.Author;
 import com.example.transactionmanagementdemo.domain.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service

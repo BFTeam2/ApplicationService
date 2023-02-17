@@ -26,13 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-//                .antMatchers("/content/test").permitAll()
-//                .antMatchers("/content/getAll", "/content/get/*").hasAuthority("read")
-//                .antMatchers("/content/create").hasAuthority("write")
-//                .antMatchers("/content/update").hasAuthority("update")
-//                .antMatchers("/content/delete/*").hasAuthority("delete")
                 .antMatchers("/admin/*").hasAuthority("admin")
                 .antMatchers("/user/*").hasAuthority("user")
                 .anyRequest().authenticated();
+//                .csrf().disable();
     }
 }

@@ -1,15 +1,11 @@
 package com.example.transactionmanagementdemo.dao;
 
-import com.example.transactionmanagementdemo.domain.entity.Author;
 import com.example.transactionmanagementdemo.domain.entity.Product;
 import com.example.transactionmanagementdemo.domain.entity.User;
-import com.example.transactionmanagementdemo.exception.AuthorSaveFailedException;
 import com.example.transactionmanagementdemo.exception.UserExistsException;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,11 +15,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Repository
 public class UserDao {

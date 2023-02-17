@@ -14,6 +14,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

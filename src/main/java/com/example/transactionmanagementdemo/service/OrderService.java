@@ -1,10 +1,8 @@
 package com.example.transactionmanagementdemo.service;
 
-import com.example.transactionmanagementdemo.dao.AuthorDao;
 import com.example.transactionmanagementdemo.dao.OrdersDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 
 import javax.transaction.Transactional;
 import java.util.List;
