@@ -1,18 +1,10 @@
 package com.example.transactionmanagementdemo.controller;
 
 import com.example.transactionmanagementdemo.domain.entity.Applicationworkflow;
-import com.example.transactionmanagementdemo.domain.entity.Digitaldocument;
-import com.example.transactionmanagementdemo.domain.entity.User;
 import com.example.transactionmanagementdemo.service.ApplicationworkflowService;
-import com.example.transactionmanagementdemo.service.DigitaldocumentService;
-import com.example.transactionmanagementdemo.service.StorageService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
