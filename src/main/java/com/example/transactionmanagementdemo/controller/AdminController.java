@@ -35,6 +35,10 @@ public class AdminController {
         return productService.getProductWholeObject(name);
     }
 
+    @GetMapping("/order/{order_id}")
+    public List getOrderById(@PathVariable int order_id){
+        return orderService.getOrderById(order_id);
+    }
     @GetMapping("/allOrders")
     public List getAllOrdersAdmin() {
         return orderService.getAllOrdersAdmin();

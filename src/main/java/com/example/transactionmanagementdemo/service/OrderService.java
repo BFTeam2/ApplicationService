@@ -1,6 +1,7 @@
 package com.example.transactionmanagementdemo.service;
 
 import com.example.transactionmanagementdemo.dao.OrdersDao;
+import com.example.transactionmanagementdemo.domain.entity.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +28,7 @@ public class OrderService {
 
     @Transactional
     public void completeOrder(int order_id){ ordersDao.completeOrder(order_id);}
+
+    @Transactional
+    public List getOrderById(int order_id){ return ordersDao.getOrderById(order_id);}
 }

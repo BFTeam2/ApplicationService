@@ -1,4 +1,5 @@
 package com.example.transactionmanagementdemo.controller;
+import com.example.transactionmanagementdemo.domain.entity.Orders;
 import com.example.transactionmanagementdemo.domain.entity.Product;
 
 import com.example.transactionmanagementdemo.service.OrderService;
@@ -36,6 +37,11 @@ public class HomeController {
         return productService.getProduct(name);
     }
 
+
+    @GetMapping("/order/{order_id}")
+    public List getOrderById(@PathVariable int order_id){
+        return orderService.getOrderById(order_id);
+    }
 
     @GetMapping("/allOrders/{user_id}")
     public List getAllOrders(@PathVariable int user_id){

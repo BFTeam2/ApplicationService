@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 //The jwt filter that we want to add to the chain of filters of Spring Security
-@Component
+//@Component
 public class JwtFilter extends OncePerRequestFilter {
 
     private JwtProvider jwtProvider;

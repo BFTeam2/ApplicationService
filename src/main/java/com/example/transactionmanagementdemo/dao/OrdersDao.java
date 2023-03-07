@@ -84,5 +84,11 @@ public class OrdersDao {
         int orderExist = q.executeUpdate();
     }
 
-
+    public List getOrderById(int order_id){
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery("SELECT p.name FROM Product p JOIN p.orderProducts op JOIN op.orders o WHERE o.order_id = :order_id");
+        q.setParameter("order_id", order_id);
+        List orderList = q.list();
+        return orderList;
+    }
 }
