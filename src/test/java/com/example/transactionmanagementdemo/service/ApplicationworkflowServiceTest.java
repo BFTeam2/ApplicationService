@@ -1,37 +1,22 @@
 package com.example.transactionmanagementdemo.service;
 
 import com.example.transactionmanagementdemo.dao.ApplicationworkflowDao;
-import com.example.transactionmanagementdemo.dao.EmployeeRepo;
-import com.example.transactionmanagementdemo.dao.OrderProductDao;
-import com.example.transactionmanagementdemo.domain.entity.Employee;
-import com.example.transactionmanagementdemo.domain.request.PurchaseRequest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
 
 import static org.mockito.Mockito.verify;
 
-@WebMvcTest(EmployeeService.class)
-public class EmployeeServiceTest {
+@WebMvcTest(ApplicationworkflowService.class)
+public class ApplicationworkflowServiceTest {
     @Autowired
     private MockMvc mockMvc;
 
 
-    @MockBean       // this annotation is provided by Spring Boot
-    EmployeeService employeeService;
-
-    @MockBean       // this annotation is provided by Spring Boot
-    EmployeeRepo employeeRepo;
-    @MockBean       // this annotation is provided by Spring Boot
-    StorageService storageService;
     @MockBean       // this annotation is provided by Spring Boot
     ApplicationworkflowDao applicationworkflowDao;
 
@@ -49,42 +34,27 @@ public class EmployeeServiceTest {
 
 
 
-    
-
     @Test
-    public void testSaveOrUpdateEmployee_success() throws Exception {
-
-//        EmployeeService service = new EmployeeService(storageService,employeeRepo,applicationworkflowDao);
-        Employee employee=Employee.builder().firstName("huang").build();
-        employeeService.saveOrUpdateEmployee(employee);
-        verify(employeeService).saveOrUpdateEmployee(employee);
+    public void testGetApplicationworkflowByEmployeeID_success() throws Exception {
+        ApplicationworkflowService service = new ApplicationworkflowService(applicationworkflowDao);
+        service.getApplicationworkflowByEmployeeID("0");
+        verify(applicationworkflowDao).getApplicationworkflowByEmployeeID("0");
     }
 
     @Test
-    public void testGetEmployeeByUserId_success() throws Exception {
-        employeeService.getEmployeeByUserId(0L);
-        verify(employeeService).getEmployeeByUserId(0L);
+    public void testGetApplicationworkflowList_success() throws Exception {
+        ApplicationworkflowService service = new ApplicationworkflowService(applicationworkflowDao);
+        service.getApplicationworkflowList(null);
+        verify(applicationworkflowDao).getApplicationworkflowList(null);
     }
 
 
     @Test
-    public void testGetPersonalDocumentByEmployeeId_success() throws Exception {
-        employeeService.getPersonalDocumentByEmployeeId("0");
-        verify(employeeService).getPersonalDocumentByEmployeeId("0");
+    public void testReviewApplication_success() throws Exception {
+        ApplicationworkflowService service = new ApplicationworkflowService(applicationworkflowDao);
+        service.reviewApplication("refuse","comment",1);
+        verify(applicationworkflowDao).reviewApplication("refuse","comment",1);
     }
 
-
-    @Test
-    public void testUpdateDocumentfile_success() throws Exception {
-        MultipartFile file = Mockito.mock(MultipartFile.class);
-        employeeService.updateDocumentfile(file,"profile_picture","comment1","0");
-        verify(employeeService).updateDocumentfile(file,"profile_picture","comment1","0");
-    }
-
-    @Test
-    public void testDownloadFile_success() throws Exception {
-        employeeService.downloadFile("0","1678008247848_dog.png");
-        verify(employeeService).downloadFile("0","1678008247848_dog.png");
-    }
 
 }

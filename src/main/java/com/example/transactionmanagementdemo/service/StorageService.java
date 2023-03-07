@@ -1,4 +1,4 @@
-package com.bfs.springdatademo.service;
+package com.example.transactionmanagementdemo.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -29,8 +29,7 @@ public class StorageService {
         File fileObj = convertMultiPartFileToFile(file);
         String type = file.getOriginalFilename();
         String fileName = System.currentTimeMillis() + "_"+type;
-        PutObjectResult putObjectResult = s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
-        System.err.println("上传完成__文件位置为" + putObjectResult);
+        s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
         fileObj.delete();
         return fileName;
     }
@@ -39,8 +38,7 @@ public class StorageService {
         File fileObj = convertMultiPartFileToFile(file);
         String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
         String fileName = System.currentTimeMillis() + "_" + title+type;
-        PutObjectResult putObjectResult = s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
-        System.err.println("上传完成__文件位置为" + putObjectResult);
+        s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
         fileObj.delete();
         return fileName;
     }

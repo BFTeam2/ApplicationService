@@ -1,6 +1,9 @@
 package com.example.transactionmanagementdemo.controller;
 
+import com.example.transactionmanagementdemo.domain.entity.Applicationworkflow;
 import com.example.transactionmanagementdemo.domain.entity.Digitaldocument;
+import com.example.transactionmanagementdemo.domain.entity.User;
+import com.example.transactionmanagementdemo.service.ApplicationworkflowService;
 import com.example.transactionmanagementdemo.service.DigitaldocumentService;
 import com.example.transactionmanagementdemo.service.StorageService;
 import io.swagger.annotations.ApiOperation;
@@ -16,47 +19,33 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/file")
-public class StorageController {
+@RequestMapping("/ApplicationReview")
+public class ApplicationworkflowController {
 
     @Autowired
-    private StorageService service;
+    private ApplicationworkflowService service;
 
-    @Autowired
-    private DigitaldocumentService digitaldocumentService;
-
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam(value = "file") MultipartFile file) {
-        return new ResponseEntity<>(service.uploadFile(file), HttpStatus.OK);
-    }
-
-    @GetMapping("/download/{fileName}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
-        byte[] data = service.downloadFile(fileName);
-        ByteArrayResource resource = new ByteArrayResource(data);
-        return ResponseEntity
-                .ok()
-                .contentLength(data.length)
-                .header("Content-type", "application/octet-stream")
-                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
-                .body(resource);
-    }
-
-//    @DeleteMapping("/delete/{fileName}")
-//    public ResponseEntity<String> deleteFile(@PathVariable String fileName) {
-//        return new ResponseEntity<>(service.deleteFile(fileName), HttpStatus.OK);
-//    }
-
-
-    @GetMapping(value = "/getAllDigitaldocument")
-    @ApiOperation(value = "Get Digitaldocument File", response = Iterable.class)
-    public Map<String,Object> getAllDigitaldocument() {
+    @GetMapping(value = "/getApplicationworkflowList")
+    @ApiOperation(value = "Get ApplicationworkflowList,Default to all employment applications", response = Iterable.class)
+    public Map<String,Object> getApplicationworkflowList(@RequestParam(required = false) String type) {
         Map<String,Object> resMap=new HashMap<>();
-        List<Digitaldocument> digitaldocuments=digitaldocumentService.getAllDigitaldocument();
+        List<Applicationworkflow> applicationworkflows=service.getApplicationworkflowList(type);
 
-        resMap.put("digitaldocuments",digitaldocuments);
+        resMap.put("applicationworkflows",applicationworkflows);
         resMap.put("msg","success");
         resMap.put("code",200);
         return resMap;
+    }
+
+    @PostMapping("/reviewApplication/{id}")
+    @ApiOperation(value = "Review application")
+    public Map<String,Object>  reviewApplication(@RequestParam String status,
+                                                  @RequestParam(required = false) String comment,
+                                                  @PathVariable Integer id) {
+        Map<String,Object> resMap= new HashMap<>();
+        service.reviewApplication(status,comment,id);
+        resMap.put("msg","success");
+        resMap.put("code",200);
+        return  resMap;
     }
 }

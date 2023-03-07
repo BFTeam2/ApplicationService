@@ -1,4 +1,4 @@
-package com.bfs.springdatademo.config;
+package com.example.transactionmanagementdemo.config;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;

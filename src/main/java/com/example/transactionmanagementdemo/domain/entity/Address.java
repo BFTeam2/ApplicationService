@@ -6,26 +6,21 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "contacts") // no longer use @Entity
+@Document(collection = "addresses") // no longer use @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Contact {
+public class Address {
     @Id
     private ObjectId id;
 
-    private String firstName;
-    private String lastName;
+    private String addressLine1;
+    private String addressLine2;
 
-    private String cellPhone;
-    private String alternatePhone;
-
-    private String Email;
-
-    private String relationship;
-    private String type;
-
+    private String city;
+    private String state;
+    private String zipCode;
 
 }

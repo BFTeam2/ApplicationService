@@ -4,37 +4,36 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
-@Table(name="applicationworkflow")
+@Table(name="digitaldocument")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
-public class Applicationworkflow {
+public class Digitaldocument {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     private Integer id;
 
-    @Column(name = "EmployeeID")
-    private String employeeID;
+    @Column(name = "Title")
+    private String title;
 
-    @Column(name = "CreateDate")
-    private Timestamp createDate;
+    @Column(name = "Type")
+    private String type;
 
-    @Column(name = "LastModificationDate")
-    private Timestamp lastModificationDate;
+    @Column(name = "isRequired")
+    private String isRequired;
 
 
 
-    @Column(name = "Status")
-    private String status;
+    @Column(name = "Path")
+    private String path;
 
-    @Column(name = "Comment")
-    private String comment;
+    @Column(name = "Description")
+    private String description;
 }
 

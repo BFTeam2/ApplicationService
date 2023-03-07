@@ -1,23 +1,25 @@
 package com.example.transactionmanagementdemo.service;
 
-import com.example.transactionmanagementdemo.dao.ApplicationworkflowDao;
-import com.example.transactionmanagementdemo.domain.request.PurchaseRequest;
+import com.example.transactionmanagementdemo.dao.DigitaldocumentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 @Service
-public class ApplicationworkflowService {
-    private final ApplicationworkflowDao applicationworkflowDao;
+@Transactional
+public class DigitaldocumentService {
+    private final DigitaldocumentDao digitaldocumentDao;
 
     @Autowired
-    public ApplicationworkflowService(ApplicationworkflowDao applicationworkflowDao) {
-        this.applicationworkflowDao = applicationworkflowDao;
+    public DigitaldocumentService(DigitaldocumentDao digitaldocumentDao) {
+        this.digitaldocumentDao = digitaldocumentDao;
     }
 
 //    @Transactional
-    public List getApplicationworkflowByEmployeeID(String employeeID){return applicationworkflowDao.getApplicationworkflowByEmployeeID(employeeID);};
+    public List getAllDigitaldocument(){return digitaldocumentDao.getAllDigitaldocument();};
+
 }
 

@@ -4,37 +4,37 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
-@Table(name="Order_Product")
+@Table(name="applicationworkflow")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
-public class OrderProduct {
+public class Applicationworkflow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_product_id", unique = true, nullable = false)
-    private Integer order_product_id;
+    @Column(name = "ID", unique = true, nullable = false)
+    private Integer id;
 
-    @Column(name = "purchased_quantity")
-    private int purchased_quantity;
+    @Column(name = "EmployeeID")
+    private String employeeID;
 
-    @Column(name = "execution_retail_price")
-    private float execution_retail_price;
+    @Column(name = "CreateDate")
+    private Timestamp createDate;
 
-    @Column(name = "execution_wholesale_price")
-    private float execution_wholesale_price;
+    @Column(name = "LastModificationDate")
+    private Timestamp lastModificationDate;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Orders orders;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(name = "Status")
+    private String status;
+
+    @Column(name = "Comment")
+    private String comment;
 }
 
