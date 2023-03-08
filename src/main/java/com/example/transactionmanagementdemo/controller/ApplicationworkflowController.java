@@ -19,9 +19,21 @@ public class ApplicationworkflowController {
 
     @GetMapping(value = "/getApplicationworkflowList")
     @ApiOperation(value = "Get ApplicationworkflowList,Default to all employment applications", response = Iterable.class)
-    public Map<String,Object> getApplicationworkflowList(@RequestParam(required = false) String type) {
+    public Map<String,Object> getApplicationworkflowList(@RequestParam(required = false) String status) {
         Map<String,Object> resMap=new HashMap<>();
-        List<Applicationworkflow> applicationworkflows=service.getApplicationworkflowList(type);
+        List<Applicationworkflow> applicationworkflows=service.getApplicationworkflowList(status);
+
+        resMap.put("applicationworkflows",applicationworkflows);
+        resMap.put("msg","success");
+        resMap.put("code",200);
+        return resMap;
+    }
+
+    @GetMapping(value = "/getApplicationworkflowListById{employee_id}")
+    @ApiOperation(value = "Get ApplicationworkflowList by id", response = Iterable.class)
+    public Map<String,Object> getApplicationworkflowListById(@PathVariable String employee_id) {
+        Map<String,Object> resMap=new HashMap<>();
+        List<Applicationworkflow> applicationworkflows=service.getApplicationworkflowByEmployeeID(employee_id);
 
         resMap.put("applicationworkflows",applicationworkflows);
         resMap.put("msg","success");

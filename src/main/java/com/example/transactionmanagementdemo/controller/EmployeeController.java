@@ -2,6 +2,7 @@ package com.example.transactionmanagementdemo.controller;
 
 
 import com.example.transactionmanagementdemo.domain.entity.Employee;
+import com.example.transactionmanagementdemo.service.ApplicationworkflowService;
 import com.example.transactionmanagementdemo.service.EmployeeService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,12 @@ import java.util.Map;
 @RequestMapping("/employee")
 public class EmployeeController {
     private final EmployeeService service;
+    private final ApplicationworkflowService applicationworkflowService;
 
     @Autowired
-    public EmployeeController(EmployeeService service) {
+    public EmployeeController(EmployeeService service, ApplicationworkflowService applicationworkflowService) {
         this.service = service;
+        this.applicationworkflowService = applicationworkflowService;
     }
 
     @GetMapping(value = "/getEmployeeByUserId/{id}")
@@ -44,6 +47,16 @@ public class EmployeeController {
     public Map<String,Object> saveOrUpdateEmployee(@RequestBody Employee employee) {
         Map<String,Object> res=new HashMap<>();
         service.saveOrUpdateEmployee(employee);
+        res.put("msg","success");
+        res.put("code",200);
+        return res;
+    }
+
+    @PostMapping("/submitApplication/{employee_id}")
+    @ApiOperation(value = "submit application")
+    public Map<String,Object> addApplication(@PathVariable String employee_id) {
+        Map<String,Object> res=new HashMap<>();
+        applicationworkflowService.addApplication(employee_id);
         res.put("msg","success");
         res.put("code",200);
         return res;
@@ -75,9 +88,9 @@ public class EmployeeController {
     }
 
 
-    @PostMapping("/getApplicationStatus/{id}")
-    @ApiOperation(value = "Get application status - string")
-    public String getApplicationStatusById(@PathVariable("id") Long id) {
-        return service.getApplicationStatusById(id);
+    @PostMapping("/getApplicationStatus/{employee_id}")
+    @ApiOperation(value = "Get employee's application status")
+    public List getApplicationStatusById(@PathVariable("employee_id") String employee_id) {
+        return service.getApplicationStatusById(employee_id);
     }
 }

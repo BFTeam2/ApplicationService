@@ -48,6 +48,20 @@ public class ApplicationworkflowDao {
         return list;
     }
 
+    public List getApplicationStatus(String employeeID) {
+        Session session;
+        List<Applicationworkflow> list = null;
+        try{
+            session = sessionFactory.getCurrentSession();
+            Query q = session.createQuery("SELECT status FROM Applicationworkflow WHERE employeeID =:employeeID");
+            q.setParameter("employeeID", employeeID);
+            list = q.list();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public List getApplicationworkflowList(String type) {
         Session session;
         List<Applicationworkflow> list = null;
@@ -90,8 +104,8 @@ public class ApplicationworkflowDao {
         Session session;
         try{
             session = sessionFactory.getCurrentSession();
-            Query query = session.createSQLQuery("INSERT INTO Applicationworkflow(employeeID, createDate, lastModificationDate)" +
-                    "values('"+applicationworkflow.getEmployeeID()+"','"+applicationworkflow.getCreateDate()+"','"+applicationworkflow.getLastModificationDate()+"')");
+            Query query = session.createSQLQuery("INSERT INTO Applicationworkflow(employeeID, createDate, lastModificationDate, status)" +
+                    "values('"+applicationworkflow.getEmployeeID()+"','"+applicationworkflow.getCreateDate()+"','"+applicationworkflow.getLastModificationDate()+"','"+applicationworkflow.getStatus()+"')");
             int result = query.executeUpdate();
             System.out.println("Rows affected: " + result);
 

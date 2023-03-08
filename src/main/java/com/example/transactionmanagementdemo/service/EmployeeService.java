@@ -48,19 +48,8 @@ public class EmployeeService {
         return resMap;
     }
 
-    public String getApplicationStatusById(Long id) {
-        List<Employee> employees=repository.findEmployeesByUserId(id);
-        Set<String> eids=employees.stream().map(employee -> employee.getId()).collect(Collectors.toSet());
-
-        List<Applicationworkflow> applicationworkflows=new ArrayList<>();
-        if(eids.size()>0)
-            applicationworkflows= applicationworkflowDao.getApplicationworkflowByEmployeeIDs(eids);
-
-        String result = "";
-        for(Applicationworkflow a : applicationworkflows) {
-            result += a.getStatus();
-        }
-        return result;
+    public List getApplicationStatusById(String id) {
+        return applicationworkflowDao.getApplicationStatus(id);
     }
 
 
@@ -89,6 +78,7 @@ public class EmployeeService {
         applicationworkflow.setEmployeeID(employee.getId());
         applicationworkflow.setCreateDate(new Timestamp(new Date().getTime()));
         applicationworkflow.setLastModificationDate(new Timestamp(new Date().getTime()));
+        applicationworkflow.setStatus("pending");
         applicationworkflowDao.addApplication(applicationworkflow);
     }
 
