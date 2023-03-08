@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ApplicationReview")
+@RequestMapping("/application")
 public class ApplicationworkflowController {
 
     @Autowired
@@ -51,5 +51,21 @@ public class ApplicationworkflowController {
         resMap.put("msg","success");
         resMap.put("code",200);
         return  resMap;
+    }
+
+    @PostMapping("/submitApplication/{employee_id}")
+    @ApiOperation(value = "submit application")
+    public Map<String,Object> addApplication(@PathVariable String employee_id) {
+        Map<String,Object> res=new HashMap<>();
+        service.addApplication(employee_id);
+        res.put("msg","success");
+        res.put("code",200);
+        return res;
+    }
+
+    @PostMapping("/getApplicationStatus/{employee_id}")
+    @ApiOperation(value = "Get employee's application status")
+    public List getApplicationStatusById(@PathVariable("employee_id") String employee_id) {
+        return service.getApplicationStatusById(employee_id);
     }
 }

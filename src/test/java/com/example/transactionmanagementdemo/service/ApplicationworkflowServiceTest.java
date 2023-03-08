@@ -56,5 +56,10 @@ public class ApplicationworkflowServiceTest {
         verify(applicationworkflowDao).reviewApplication("refuse","comment",1);
     }
 
-
+    @Test
+    public void testGetApplicationStatusById_success() throws Exception {
+        ApplicationworkflowService service = new ApplicationworkflowService(applicationworkflowDao);
+        service.getApplicationStatusById("0");
+        verify(applicationworkflowDao).getApplicationStatus("0");
+    }
 }

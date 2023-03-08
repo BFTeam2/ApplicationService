@@ -37,5 +37,9 @@ public class ApplicationworkflowService {
     public void reviewApplication(String status, String comment, Integer id) {
         applicationworkflowDao.reviewApplication(status,comment,id);
     }
+
+    public List getApplicationStatusById(String id) {
+        return applicationworkflowDao.getApplicationStatus(id);
+    }
 }
 

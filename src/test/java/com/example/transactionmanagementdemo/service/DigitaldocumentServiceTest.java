@@ -33,7 +33,7 @@ public class DigitaldocumentServiceTest {
 
 
     @Test
-    public void testSaveOrUpdateEmployee_success() throws Exception {
+    public void testGetAllDigitaldocument_success() throws Exception {
 
         DigitaldocumentService service = new DigitaldocumentService(digitaldocumentDao);
         service.getAllDigitaldocument();

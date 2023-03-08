@@ -20,19 +20,19 @@ public class ApplicationworkflowDao {
     SessionFactory sessionFactory;
 
 
-    public List getApplicationworkflowByEmployeeIDs(Set<String> employeeIDs){
-        Session session;
-        List<Applicationworkflow> list = null;
-        try{
-            session = sessionFactory.getCurrentSession();
-            Query q = session.createQuery("SELECT id,employeeID,createDate,lastModificationDate,status,comment FROM Applicationworkflow WHERE employeeID  in(:employeeIDs) order by lastModificationDate desc ");
-            q.setParameter("employeeIDs", employeeIDs);
-            list = q.list();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return list;
-    }
+//    public List getApplicationworkflowByEmployeeIDs(Set<String> employeeIDs){
+//        Session session;
+//        List<Applicationworkflow> list = null;
+//        try{
+//            session = sessionFactory.getCurrentSession();
+//            Query q = session.createQuery("SELECT id,employeeID,createDate,lastModificationDate,status,comment FROM Applicationworkflow WHERE employeeID  in(:employeeIDs) order by lastModificationDate desc ");
+//            q.setParameter("employeeIDs", employeeIDs);
+//            list = q.list();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return list;
+//    }
 
     public List getApplicationworkflowByEmployeeID(String employeeID){
         Session session;

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/file")
+@RequestMapping("/application")
 public class StorageController {
 
     @Autowired
@@ -25,22 +25,22 @@ public class StorageController {
     @Autowired
     private DigitaldocumentService digitaldocumentService;
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam(value = "file") MultipartFile file) {
-        return new ResponseEntity<>(service.uploadFile(file), HttpStatus.OK);
-    }
-
-    @GetMapping("/download/{fileName}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
-        byte[] data = service.downloadFile(fileName);
-        ByteArrayResource resource = new ByteArrayResource(data);
-        return ResponseEntity
-                .ok()
-                .contentLength(data.length)
-                .header("Content-type", "application/octet-stream")
-                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
-                .body(resource);
-    }
+//    @PostMapping("/upload")
+//    public ResponseEntity<String> uploadFile(@RequestParam(value = "file") MultipartFile file) {
+//        return new ResponseEntity<>(service.uploadFile(file), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/download/{fileName}")
+//    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
+//        byte[] data = service.downloadFile(fileName);
+//        ByteArrayResource resource = new ByteArrayResource(data);
+//        return ResponseEntity
+//                .ok()
+//                .contentLength(data.length)
+//                .header("Content-type", "application/octet-stream")
+//                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
+//                .body(resource);
+//    }
 
 //    @DeleteMapping("/delete/{fileName}")
 //    public ResponseEntity<String> deleteFile(@PathVariable String fileName) {
