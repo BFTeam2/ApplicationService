@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -17,17 +18,12 @@ public class DigitaldocumentDao {
     SessionFactory sessionFactory;
 
 
-    public List getAllDigitaldocument(){
-        Session session;
-        List<Digitaldocument> list = null;
-        try{
-            session = sessionFactory.getCurrentSession();
-            Query q = session.createQuery("SELECT id,title,type,isRequired,path,description FROM Digitaldocument");
-            list = q.list();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return list;
+    public List<Digitaldocument> getAllDigitaldocument(){
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "FROM Digitaldocument";
+        Query<Digitaldocument> query = session.createQuery(hql);
+        return query.getResultList();
     }
+
 }
 

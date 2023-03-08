@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/application")
@@ -48,15 +49,29 @@ public class StorageController {
 //    }
 
 
-    @GetMapping(value = "/getAllDigitaldocument")
+    @GetMapping(value = "/getAllDigitaldocument/{title}")
     @ApiOperation(value = "Get Digitaldocument File", response = Iterable.class)
-    public Map<String,Object> getAllDigitaldocument() {
-        Map<String,Object> resMap=new HashMap<>();
-        List<Digitaldocument> digitaldocuments=digitaldocumentService.getAllDigitaldocument();
+    public ResponseEntity<ByteArrayResource> getAllDigitaldocument(@PathVariable String title) {
+        List<Digitaldocument> lst = digitaldocumentService.getAllDigitaldocument();
+        String path = lst.stream()
+                .filter(d -> d.getTitle().toLowerCase().equals(title))
+                .collect(Collectors.toList()).get(0).getPath();
+        byte[] data = service.downloadFile(path);
+        ByteArrayResource resource = new ByteArrayResource(data);
+        return ResponseEntity
+                .ok()
+                .contentLength(data.length)
+                .header("Content-type", "application/octet-stream")
+                .header("Content-disposition", "attachment; filename=\"" + path + "\"")
+                .body(resource);
+    }
 
-        resMap.put("digitaldocuments",digitaldocuments);
-        resMap.put("msg","success");
-        resMap.put("code",200);
-        return resMap;
+    @GetMapping(value = "/getRequiredDigitaldocument")
+    @ApiOperation(value = "Get Digitaldocument File", response = Iterable.class)
+    public List<String> getRequiredDigitaldocument() {
+        return digitaldocumentService.getAllDigitaldocument().stream()
+                .filter(d -> d.getIsRequired().toLowerCase().equals("yes"))
+                .map(d -> d.getPath())
+                .collect(Collectors.toList());
     }
 }

@@ -1,6 +1,7 @@
 package com.example.transactionmanagementdemo.service;
 
 import com.example.transactionmanagementdemo.dao.DigitaldocumentDao;
+import com.example.transactionmanagementdemo.domain.entity.Digitaldocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ public class DigitaldocumentService {
     }
 
 //    @Transactional
-    public List getAllDigitaldocument(){return digitaldocumentDao.getAllDigitaldocument();};
+    public List<Digitaldocument> getAllDigitaldocument(){return digitaldocumentDao.getAllDigitaldocument();};
 
 }
 
