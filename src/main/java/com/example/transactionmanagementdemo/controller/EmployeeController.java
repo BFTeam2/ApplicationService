@@ -73,4 +73,11 @@ public class EmployeeController {
                 .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
                 .body(resource);
     }
+
+
+    @PostMapping("/getApplicationStatus/{id}")
+    @ApiOperation(value = "Get application status - string")
+    public String getApplicationStatusById(@PathVariable("id") Long id) {
+        return service.getApplicationStatusById(id);
+    }
 }

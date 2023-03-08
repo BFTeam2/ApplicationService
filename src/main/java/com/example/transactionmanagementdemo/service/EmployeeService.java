@@ -48,6 +48,22 @@ public class EmployeeService {
         return resMap;
     }
 
+    public String getApplicationStatusById(Long id) {
+        List<Employee> employees=repository.findEmployeesByUserId(id);
+        Set<String> eids=employees.stream().map(employee -> employee.getId()).collect(Collectors.toSet());
+
+        List<Applicationworkflow> applicationworkflows=new ArrayList<>();
+        if(eids.size()>0)
+            applicationworkflows= applicationworkflowDao.getApplicationworkflowByEmployeeIDs(eids);
+
+        String result = "";
+        for(Applicationworkflow a : applicationworkflows) {
+            result += a.getStatus();
+        }
+        return result;
+    }
+
+
 
     public Map<String, Object> getPersonalDocumentByEmployeeId(String employeeId) {
         Map<String,Object> res=new HashMap<>();
