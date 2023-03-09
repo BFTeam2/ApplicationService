@@ -51,8 +51,9 @@ public class ApplicationworkflowDao {
 
     public Applicationworkflow getApplicationWorkflowById(int applicationId){
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM Applicationworkflow";
+        String hql = "FROM Applicationworkflow where ID = :id";
         Query<Applicationworkflow> query = session.createQuery(hql);
+        query.setParameter("id", applicationId);
         return query.getResultList().get(0);
     }
 
@@ -72,9 +73,18 @@ public class ApplicationworkflowDao {
 
     public List<Applicationworkflow> getApplicationworkflowList(String status) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM Applicationworkflow";
-        Query<Applicationworkflow> query = session.createQuery(hql);
-        return query.getResultList();
+        String hql;
+        if (status.equals("all")) {
+            hql = "FROM Applicationworkflow";
+            Query<Applicationworkflow> query = session.createQuery(hql);
+            return query.getResultList();
+        }
+        else {
+            hql = "FROM Applicationworkflow where status = :status";
+            Query<Applicationworkflow> query = session.createQuery(hql);
+            query.setParameter("status", status);
+            return query.getResultList();
+        }
     }
 
     public void reviewApplication(String status, String comment, Integer id) {
