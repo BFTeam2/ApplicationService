@@ -18,15 +18,10 @@ public class ApplicationworkflowController {
     private ApplicationworkflowService service;
 
     @GetMapping(value = "/getApplicationworkflowList")
-    @ApiOperation(value = "Get ApplicationworkflowList,Default to all employment applications", response = Iterable.class)
-    public Map<String,Object> getApplicationworkflowList(@RequestParam(required = false) String status) {
-        Map<String,Object> resMap=new HashMap<>();
-        List<Applicationworkflow> applicationworkflows=service.getApplicationworkflowList(status);
-
-        resMap.put("applicationworkflows",applicationworkflows);
-        resMap.put("msg","success");
-        resMap.put("code",200);
-        return resMap;
+    @ApiOperation(value = "Get ApplicationworkflowList, status: pending, rejected, approved, all", response = Iterable.class)
+    public List<Applicationworkflow> getApplicationworkflowList(@RequestParam String status) {
+//        TODO 这里我改了status，有空yun去dao那里也改一下
+        return service.getApplicationworkflowList(status);
     }
 
     @GetMapping(value = "/getApplicationworkflowListById{employee_id}")
@@ -39,6 +34,12 @@ public class ApplicationworkflowController {
         resMap.put("msg","success");
         resMap.put("code",200);
         return resMap;
+    }
+
+    @GetMapping("/getApplicationById/{applicationId}")
+    @ApiOperation(value = "get application workflow by application id")
+    public Applicationworkflow getApplicationWorkflowById(@PathVariable int applicationId){
+        return service.getApplicationWorkflowById(applicationId);
     }
 
     @PostMapping("/reviewApplication/{id}")
