@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/application")
+//@RequestMapping("/application")
 public class StorageController {
 
     @Autowired
@@ -49,8 +49,8 @@ public class StorageController {
 //    }
 
 
-    @GetMapping(value = "/getAllDigitaldocument/{title}")
-    @ApiOperation(value = "Get Digitaldocument File", response = Iterable.class)
+    @GetMapping(value = "/getDigitaldocument/{title}")
+    @ApiOperation(value = "Get Digitaldocument File by title", response = Iterable.class)
     public ResponseEntity<ByteArrayResource> getAllDigitaldocument(@PathVariable String title) {
         List<Digitaldocument> lst = digitaldocumentService.getAllDigitaldocument();
         String path = lst.stream()
@@ -67,11 +67,11 @@ public class StorageController {
     }
 
     @GetMapping(value = "/getRequiredDigitaldocument")
-    @ApiOperation(value = "Get Digitaldocument File", response = Iterable.class)
+    @ApiOperation(value = "Get required digital documents", response = Iterable.class)
     public List<String> getRequiredDigitaldocument() {
         return digitaldocumentService.getAllDigitaldocument().stream()
                 .filter(d -> d.getIsRequired().toLowerCase().equals("yes"))
-                .map(d -> d.getPath())
+                .map(d -> d.getTitle())
                 .collect(Collectors.toList());
     }
 }

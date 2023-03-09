@@ -30,8 +30,8 @@ public class ApplicationworkflowService {
     }
     public List getApplicationworkflowByEmployeeID(String employeeID){return applicationworkflowDao.getApplicationworkflowByEmployeeID(employeeID);};
 
-    public List<Applicationworkflow> getApplicationworkflowList(String type) {
-        return  applicationworkflowDao.getApplicationworkflowList(type);
+    public List<Applicationworkflow> getApplicationworkflowList(String status) {
+        return applicationworkflowDao.getApplicationworkflowList(status);
     }
 
     public void reviewApplication(String status, String comment, Integer id) {
@@ -40,6 +40,10 @@ public class ApplicationworkflowService {
 
     public List getApplicationStatusById(String id) {
         return applicationworkflowDao.getApplicationStatus(id);
+    }
+
+    public Applicationworkflow getApplicationWorkflowById(int applicationId){
+        return applicationworkflowDao.getApplicationWorkflowById(applicationId);
     }
 }
 
