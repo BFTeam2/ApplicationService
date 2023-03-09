@@ -64,9 +64,10 @@ public class ApplicationworkflowController {
         return res;
     }
 
-    @PostMapping("/getApplicationStatus/{employee_id}")
+    @GetMapping("/getApplicationStatus/{employee_id}")
     @ApiOperation(value = "Get employee's application status")
-    public List getApplicationStatusById(@PathVariable("employee_id") String employee_id) {
+    public List<Applicationworkflow> getApplicationStatusById(@PathVariable("employee_id") String employee_id) {
+//        this is only used for testing db purpose, no need to write unit test
         return service.getApplicationStatusById(employee_id);
     }
 }

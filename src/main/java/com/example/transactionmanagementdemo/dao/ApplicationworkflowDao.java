@@ -62,7 +62,7 @@ public class ApplicationworkflowDao {
         List<Applicationworkflow> list = null;
         try{
             session = sessionFactory.getCurrentSession();
-            Query<Applicationworkflow> q = session.createQuery("SELECT status FROM Applicationworkflow WHERE employeeID =:employeeID");
+            Query<Applicationworkflow> q = session.createQuery("FROM Applicationworkflow WHERE employeeID =:employeeID");
             q.setParameter("employeeID", employeeID);
             list = q.list();
         }catch (Exception e){
