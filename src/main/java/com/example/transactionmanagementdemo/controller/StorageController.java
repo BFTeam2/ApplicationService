@@ -72,7 +72,7 @@ public class StorageController {
     public List<String> getRequiredDigitaldocument() {
         return digitaldocumentService.getAllDigitaldocument().stream()
                 .filter(d -> d.getIsRequired().toLowerCase().equals("yes"))
-                .map(d -> d.getPath())
+                .map(d -> d.getTitle())
                 .collect(Collectors.toList());
     }
 }

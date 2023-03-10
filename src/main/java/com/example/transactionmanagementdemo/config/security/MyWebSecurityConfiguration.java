@@ -51,7 +51,7 @@ public class MyWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				// Filter requests
 				.authorizeRequests()
 				// Allow anonymous access to login and register
-				.antMatchers("/mongo/*","/file/*").permitAll()
+				.antMatchers("/mongo/*","/file/*","/swagger-ui/*").permitAll()
 				// Static resources, can be accessed anonymously
 				.antMatchers(HttpMethod.GET, "/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**").permitAll()
 				// All requests except the above need authentication and authorization

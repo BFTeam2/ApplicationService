@@ -109,7 +109,7 @@ public class ApplicationworkflowController {
         return  resMap;
     }
 
-    @PostMapping("/submitApplication")
+    @PostMapping("/submitApplication/{employee_id}")
     @ApiOperation(value = "submit application")
     public Map<String,Object> addApplication(@PathVariable String employee_id) {
         Map<String,Object> res=new HashMap<>();

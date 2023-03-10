@@ -109,7 +109,7 @@ public class ApplicationworkflowDao {
         Session session;
         try{
             session = sessionFactory.getCurrentSession();
-            Query query = session.createSQLQuery("INSERT INTO Applicationworkflow(employeeID, createDate, lastModificationDate, status)" +
+            Query query = session.createSQLQuery("INSERT INTO applicationworkflow(employeeID, createDate, lastModificationDate, status)" +
                     "values('"+applicationworkflow.getEmployeeID()+"','"+applicationworkflow.getCreateDate()+"','"+applicationworkflow.getLastModificationDate()+"','"+applicationworkflow.getStatus()+"')");
             int result = query.executeUpdate();
             System.out.println("Rows affected: " + result);
