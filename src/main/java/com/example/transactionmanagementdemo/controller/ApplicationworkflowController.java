@@ -1,7 +1,5 @@
 package com.example.transactionmanagementdemo.controller;
 
-import com.example.transactionmanagementdemo.common.constants.MessageConstant;
-import com.example.transactionmanagementdemo.common.domain.ResultDto;
 import com.example.transactionmanagementdemo.domain.entity.Applicationworkflow;
 import com.example.transactionmanagementdemo.domain.response.ApplicationworkflowResponse;
 import com.example.transactionmanagementdemo.security.AuthUserDetail;
@@ -25,17 +23,6 @@ public class ApplicationworkflowController {
     private ApplicationworkflowService service;
 
     @GetMapping(value = "/getApplicationworkflowList")
-<<<<<<< Updated upstream
-    @ApiOperation(value = "Get ApplicationworkflowList,Default to all employment applications", response = Iterable.class)
-    public Map<String,Object> getApplicationworkflowList(@RequestParam(required = false) String status) {
-        Map<String,Object> resMap=new HashMap<>();
-        List<Applicationworkflow> applicationworkflows=service.getApplicationworkflowList(status);
-
-        resMap.put("applicationworkflows",applicationworkflows);
-        resMap.put("msg","success");
-        resMap.put("code",200);
-        return resMap;
-=======
     @ApiOperation(value = "Get ApplicationworkflowList, status: pending, rejected, approved, all", response = Iterable.class)
     public ApplicationworkflowResponse getApplicationworkflowList(@RequestParam String status) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -57,21 +44,21 @@ public class ApplicationworkflowController {
                 .message(message)
                 .applicationworkflows(list)
                 .build();
->>>>>>> Stashed changes
     }
 
-    @GetMapping(value = "/getApplicationworkflowListById{employee_id}")
-    @ApiOperation(value = "Get ApplicationworkflowList by id", response = Iterable.class)
-    public Map<String,Object> getApplicationworkflowListById(@PathVariable String employee_id) {
-        Map<String,Object> resMap=new HashMap<>();
-        List<Applicationworkflow> applicationworkflows=service.getApplicationworkflowByEmployeeID(employee_id);
+//    not used
+//    @GetMapping(value = "/getApplicationworkflowListById/{employee_id}")
+//    @ApiOperation(value = "Get ApplicationworkflowList by id", response = Iterable.class)
+//    public Map<String,Object> getApplicationworkflowListById(@PathVariable String employee_id) {
+//        Map<String,Object> resMap=new HashMap<>();
+//        List<Applicationworkflow> applicationworkflows=service.getApplicationworkflowByEmployeeID(employee_id);
+//
+//        resMap.put("applicationworkflows",applicationworkflows);
+//        resMap.put("msg","success");
+//        resMap.put("code",200);
+//        return resMap;
+//    }
 
-<<<<<<< Updated upstream
-        resMap.put("applicationworkflows",applicationworkflows);
-        resMap.put("msg","success");
-        resMap.put("code",200);
-        return resMap;
-=======
     @GetMapping("/getApplicationById/{applicationId}")
     @ApiOperation(value = "get application workflow by application id")
     public ApplicationworkflowResponse getApplicationWorkflowById(@PathVariable int applicationId){
@@ -95,18 +82,14 @@ public class ApplicationworkflowController {
                 .message(message)
                 .applicationworkflows(list)
                 .build();
->>>>>>> Stashed changes
     }
 
-    @PostMapping("/reviewApplication/{id}")
-    @ApiOperation(value = "Review application")
+    @PostMapping("/reviewApplication/{applicationId}")
+    @ApiOperation(value = "modify application status")
     public Map<String,Object>  reviewApplication(@RequestParam String status,
-                                                  @RequestParam(required = false) String comment,
-                                                  @PathVariable Integer id) {
+                                                 @RequestParam String comment,
+                                                 @PathVariable Integer applicationId) {
         Map<String,Object> resMap= new HashMap<>();
-<<<<<<< Updated upstream
-        service.reviewApplication(status,comment,id);
-=======
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AuthUserDetail authUserDetail = (AuthUserDetail) principal;
         System.out.println(authUserDetail.getUsername());
@@ -121,13 +104,12 @@ public class ApplicationworkflowController {
         }
 
         service.reviewApplication(status,comment,applicationId);
->>>>>>> Stashed changes
         resMap.put("msg","success");
         resMap.put("code",200);
         return  resMap;
     }
 
-    @PostMapping("/submitApplication/{employee_id}")
+    @PostMapping("/submitApplication")
     @ApiOperation(value = "submit application")
     public Map<String,Object> addApplication(@PathVariable String employee_id) {
         Map<String,Object> res=new HashMap<>();
@@ -137,7 +119,7 @@ public class ApplicationworkflowController {
         return res;
     }
 
-    @PostMapping("/getApplicationStatus")
+    @GetMapping("/getApplicationStatus")
     @ApiOperation(value = "Get employee's application status")
     public List getApplicationStatusById() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

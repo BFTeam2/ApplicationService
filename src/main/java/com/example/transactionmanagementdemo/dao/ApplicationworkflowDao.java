@@ -3,6 +3,7 @@ package com.example.transactionmanagementdemo.dao;
 
 import com.amazonaws.util.StringUtils;
 import com.example.transactionmanagementdemo.domain.entity.Applicationworkflow;
+import com.example.transactionmanagementdemo.domain.entity.Digitaldocument;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -19,7 +20,6 @@ public class ApplicationworkflowDao {
     @Autowired
     SessionFactory sessionFactory;
 
-    // test
 
 //    public List getApplicationworkflowByEmployeeIDs(Set<String> employeeIDs){
 //        Session session;
@@ -49,12 +49,20 @@ public class ApplicationworkflowDao {
         return list;
     }
 
-    public List getApplicationStatus(String employeeID) {
+    public Applicationworkflow getApplicationWorkflowById(int applicationId){
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "FROM Applicationworkflow where ID = :id";
+        Query<Applicationworkflow> query = session.createQuery(hql);
+        query.setParameter("id", applicationId);
+        return query.getResultList().get(0);
+    }
+
+    public List<Applicationworkflow> getApplicationStatus(String employeeID) {
         Session session;
         List<Applicationworkflow> list = null;
         try{
             session = sessionFactory.getCurrentSession();
-            Query q = session.createQuery("SELECT status FROM Applicationworkflow WHERE employeeID =:employeeID");
+            Query<Applicationworkflow> q = session.createQuery("FROM Applicationworkflow WHERE employeeID =:employeeID");
             q.setParameter("employeeID", employeeID);
             list = q.list();
         }catch (Exception e){
@@ -63,24 +71,20 @@ public class ApplicationworkflowDao {
         return list;
     }
 
-    public List getApplicationworkflowList(String type) {
-        Session session;
-        List<Applicationworkflow> list = null;
-        try{
-            session = sessionFactory.getCurrentSession();
-            if(StringUtils.isNullOrEmpty(type)){
-                Query q = session.createQuery("SELECT id,employeeID,createDate,lastModificationDate,status,comment FROM Applicationworkflow order by createDate desc");
-                list = q.list();
-            }else{
-                Query q = session.createQuery("SELECT id,employeeID,createDate,lastModificationDate,status,comment FROM Applicationworkflow WHERE status =:status  order by createDate desc");
-                q.setParameter("status", type);
-                list = q.list();
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
+    public List<Applicationworkflow> getApplicationworkflowList(String status) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql;
+        if (status.equals("all")) {
+            hql = "FROM Applicationworkflow";
+            Query<Applicationworkflow> query = session.createQuery(hql);
+            return query.getResultList();
         }
-        return list;
+        else {
+            hql = "FROM Applicationworkflow where status = :status";
+            Query<Applicationworkflow> query = session.createQuery(hql);
+            query.setParameter("status", status);
+            return query.getResultList();
+        }
     }
 
     public void reviewApplication(String status, String comment, Integer id) {
