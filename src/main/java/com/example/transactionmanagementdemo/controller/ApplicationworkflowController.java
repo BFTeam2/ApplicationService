@@ -17,6 +17,10 @@ public class ApplicationworkflowController {
     @Autowired
     private ApplicationworkflowService service;
 
+    @Autowired
+    public ApplicationworkflowController(ApplicationworkflowService service) {
+        this.service = service;
+    }
     @GetMapping(value = "/getApplicationworkflowList")
     @ApiOperation(value = "Get ApplicationworkflowList, status: pending, rejected, approved, all", response = Iterable.class)
     public List<Applicationworkflow> getApplicationworkflowList(@RequestParam String status) {
@@ -64,9 +68,4 @@ public class ApplicationworkflowController {
         return res;
     }
 
-    @PostMapping("/getApplicationStatus/{employee_id}")
-    @ApiOperation(value = "Get employee's application status")
-    public List getApplicationStatusById(@PathVariable("employee_id") String employee_id) {
-        return service.getApplicationStatusById(employee_id);
-    }
 }

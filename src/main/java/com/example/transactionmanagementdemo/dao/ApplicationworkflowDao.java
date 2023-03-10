@@ -58,19 +58,6 @@ public class ApplicationworkflowDao {
         return query.getResultList().get(0);
     }
 
-    public List<Applicationworkflow> getApplicationStatus(String employeeID) {
-        Session session;
-        List<Applicationworkflow> list = null;
-        try{
-            session = sessionFactory.getCurrentSession();
-            Query<Applicationworkflow> q = session.createQuery("SELECT status FROM Applicationworkflow WHERE employeeID =:employeeID");
-            q.setParameter("employeeID", employeeID);
-            list = q.list();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return list;
-    }
 
     public List<Applicationworkflow> getApplicationworkflowList(String status) {
         Session session = sessionFactory.getCurrentSession();

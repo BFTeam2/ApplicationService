@@ -38,10 +38,6 @@ public class ApplicationworkflowService {
         applicationworkflowDao.reviewApplication(status,comment,id);
     }
 
-    public List getApplicationStatusById(String id) {
-        return applicationworkflowDao.getApplicationStatus(id);
-    }
-
     public Applicationworkflow getApplicationWorkflowById(int applicationId){
         return applicationworkflowDao.getApplicationWorkflowById(applicationId);
     }

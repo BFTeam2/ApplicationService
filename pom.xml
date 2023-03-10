@@ -95,16 +95,7 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <version>5.7.3</version>
-        </dependency>
+
         <!--   Mockito     -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -113,12 +104,7 @@
             <scope>test</scope>
         </dependency>
         <!--   Jacoco     -->
-        <dependency>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.7</version>
-            <type>maven-plugin</type>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -219,7 +205,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.2</version>
+                <version>0.8.7</version>
                 <configuration>
                     <excludes>
                         <!--                        any directory with "domain" in its path-->
@@ -229,7 +215,7 @@
                         <exclude>**/AOP/**</exclude>
                         <exclude>**/exception/**</exclude>
                         <exclude>**/security/**</exclude>
-                        <exclude>**/dao/**</exclude>
+
                     </excludes>
                 </configuration>
                 <executions>

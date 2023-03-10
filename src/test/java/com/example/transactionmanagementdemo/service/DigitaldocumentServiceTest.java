@@ -1,6 +1,7 @@
 package com.example.transactionmanagementdemo.service;
 
 import com.example.transactionmanagementdemo.dao.DigitaldocumentDao;
+import com.example.transactionmanagementdemo.dao.DigitaldocumentDaoTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -25,23 +25,7 @@ public class StorageService {
     @Autowired
     private AmazonS3 s3Client;
 
-    public String uploadFile(MultipartFile file) {
-        File fileObj = convertMultiPartFileToFile(file);
-        String type = file.getOriginalFilename();
-        String fileName = System.currentTimeMillis() + "_"+type;
-        s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
-        fileObj.delete();
-        return fileName;
-    }
 
-    public String uploadFile(MultipartFile file,String title) {
-        File fileObj = convertMultiPartFileToFile(file);
-        String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-        String fileName = System.currentTimeMillis() + "_" + title+type;
-        s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
-        fileObj.delete();
-        return fileName;
-    }
 
     public byte[] downloadFile(String fileName) {
         S3Object s3Object = s3Client.getObject(bucketName, fileName);
@@ -53,23 +37,6 @@ public class StorageService {
             e.printStackTrace();
         }
         return null;
-    }
-
-
-    public String deleteFile(String fileName) {
-        s3Client.deleteObject(bucketName, fileName);
-        return fileName + " removed ...";
-    }
-
-
-    private File convertMultiPartFileToFile(MultipartFile file) {
-        File convertedFile = new File(file.getOriginalFilename());
-        try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
-            fos.write(file.getBytes());
-        } catch (IOException e) {
-            log.error("Error converting multipartFile to file", e);
-        }
-        return convertedFile;
     }
 
 }
