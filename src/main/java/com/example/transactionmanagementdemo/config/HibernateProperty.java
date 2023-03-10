@@ -11,8 +11,8 @@ public class HibernateProperty {
     @Value("${database.hibernate.url}")
     private String url;
 
-    @Value("${database.hibernate.driver}")
-    private String driver;
+//    @Value("${database.hibernate.driver}")
+//    private String driver;
 
     @Value("${database.hibernate.username}")
     private String username;
@@ -34,13 +34,13 @@ public class HibernateProperty {
         this.url = url;
     }
 
-    public String getDriver() {
-        return driver;
-    }
-
-    public void setDriver(String driver) {
-        this.driver = driver;
-    }
+//    public String getDriver() {
+//        return driver;
+//    }
+//
+//    public void setDriver(String driver) {
+//        this.driver = driver;
+//    }
 
     public String getUsername() {
         return username;

@@ -17,7 +17,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
+<<<<<<< Updated upstream
 @RequestMapping("/application")
+=======
+@RequestMapping("/storage")
+>>>>>>> Stashed changes
 public class StorageController {
 
     @Autowired
